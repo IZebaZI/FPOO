@@ -1,3 +1,4 @@
+#Ejercicio 1
 numero = int(input("Ingresa un número entero positivo: "))
 i = 1
 
