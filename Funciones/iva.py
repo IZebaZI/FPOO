@@ -1,3 +1,4 @@
+#Ejercicio 1
 def calcularIVA(cantidad, porcentaje = 21):
     resultado = cantidad*(float(porcentaje)/100)
     print(resultado)
