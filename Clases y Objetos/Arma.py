@@ -1,6 +1,6 @@
-class Armas:
+class Arma:
     def seleccionarArma(self, nombre):
-        seleccion = int(input("Selecciona un arma:\n 1. Rifle de asalto\n 2. Espada de Energía\n 3. Rifle M392\n"))
+        seleccion = int(input("\nSelecciona un arma:\n 1. Rifle de asalto\n 2. Espada de Energía\n 3. Rifle M392\n"))
         if(seleccion == 1):
             print("Rifle de asalto asignado a " + nombre)
             print("Municiones 7.62 * 52mm, sin mira")
