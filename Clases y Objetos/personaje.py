@@ -30,6 +30,9 @@ class Personaje:
     
     def lanzarGranada(self):
         print(self.__nombre + " pegó una granada")
+        
+    def __pensar(self):
+        print(self.__nombre + " está pensando")
     
     #Atributos
     # especie = "Humano"
