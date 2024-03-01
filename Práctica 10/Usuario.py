@@ -18,7 +18,7 @@ class Usuario:
         return self.__apellidoM
     def getCorreo(self):
         return self.__correo
-    def __validarPassword(self, password):
+    def __validatePassword(self, password):
         if(self.__password == password):
             return True
         else:
@@ -33,12 +33,14 @@ class Usuario:
         self.__correo = correo
     def setPassword(self, password):
         self.__password = password
-        
-    def cambiarPassword(self, correo, password):
+    
+    # METHODS
+    def changePassword(self, correo, password):
         if(self.__correo == correo ):
-            self.__password == password
+            self.__password = password
+            return True
         else:
-            print("El correo no es el registrado anteriormente")
+            return False
     
     def printInfo(self):
         print(f"ID: {self.__id}\nNombre: {self.__nombre}\nApellido Paterno: {self.__apellidoP}\nApellido Materno: {self.__apellidoM}\nCorreo: {self.__correo}\nContraseña: {self.__password}")
