@@ -11,6 +11,7 @@ class Usuario:
     
     def generarMatricula(self):
         letrasCarrera = str(self.__carrera[0:3])
+        numerosActual = "24"
         numerosNacimiento = str(self.__nacimiento[2:4])
         letrasNombre = str(self.__nombre[0])
         letrasApeP = str(self.__apellidoP[0:3])
@@ -19,8 +20,5 @@ class Usuario:
         for i in range(0,3):
             numero = random.randint(0,9)
             numeros = numeros+str(numero)
-        self.__matricula = str(letrasCarrera+numerosNacimiento+letrasNombre+letrasApeP+letrasApeM+numeros).upper()
+        self.__matricula = str(letrasCarrera+numerosActual+numerosNacimiento+letrasNombre+letrasApeP+letrasApeM+numeros).upper()
         return self.__matricula
-
-# usuario = Usuario("Sebastian", "Ramirez", "Garcia", "2004", "Sistemas")
-# print(usuario.generarMatricula())
