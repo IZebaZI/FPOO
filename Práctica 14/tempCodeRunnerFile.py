@@ -1,1 +1,1 @@
-int(efectivo.g
+, pady=(10,0)

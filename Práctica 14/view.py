@@ -7,7 +7,7 @@ class View:
         listaCuentas = []
         window = Tk()
         window.title("Administrador de Cuentas")
-        window.geometry("440x300")
+        window.geometry("450x350")
         
         # Funciones
         def crearCuenta():
@@ -85,6 +85,18 @@ class View:
         
         
         # Interfaz
+        titles = Frame(window, bg="lightblue")
+        titles.pack(expand = True, fill="both")
+        
+        labelCrear = Label(titles, text="Crear Usuario", font=("Lexend", 16, "bold"))
+        labelCrear.grid(column=1, row=0, pady=(0,10), padx=(5,5))
+        
+        labelConsultar = Label(titles, text="Consultar", font=("Lexend", 16, "bold"))
+        labelConsultar.grid(column=2, row=0, pady=(0,10), padx=(10,5))
+        
+        labelTransferir= Label(titles, text="Transferir", font=("Lexend", 16, "bold"))
+        labelTransferir.grid(column=3, row=0, pady=(0,10), padx=(35,0))
+        
         seccion = Frame(window, bg="lightblue")
         seccion.pack(expand = True, fill="both")
         
@@ -96,7 +108,7 @@ class View:
         
         titular = StringVar()
         labelTitular = Label(seccion, text="Titular: ")
-        labelTitular.grid(column=1, row=2, padx = (10, 10))
+        labelTitular.grid(column=1, row=2, padx = (10, 10), pady=(10,0))
         inputTitular = Entry(seccion, textvariable=titular)
         inputTitular.grid(column=1, row=3, padx = (10, 10))
         
@@ -120,7 +132,7 @@ class View:
         
         efectivo = StringVar()
         labelEfectivo = Label(seccion, text="Efectivo: ")
-        labelEfectivo.grid(column=2, row=2, padx = (10, 10))
+        labelEfectivo.grid(column=2, row=2, padx = (10, 10), pady=(10,0))
         inputEfectivo = Entry(seccion, textvariable=efectivo)
         inputEfectivo.grid(column=2, row=3, padx = (10, 10))
         
@@ -132,7 +144,7 @@ class View:
         
         cuentaDestino = StringVar()
         labelDestino = Label(seccion, text="No. Cuenta Destino: ")
-        labelDestino.grid(column=3, row=2, padx = (10, 10))
+        labelDestino.grid(column=3, row=2, padx = (10, 10), pady=(10,0))
         inputDestino = Entry(seccion, textvariable=cuentaDestino)
         inputDestino.grid(column=3, row=3, padx = (10, 10))
         
@@ -144,7 +156,7 @@ class View:
         
         # Botones
         btnCrearCuenta = Button(seccion, text = "Generar", command = crearCuenta)
-        btnCrearCuenta.grid(column=1, row=8, pady = (10, 10))
+        btnCrearCuenta.grid(column=1, row=8, pady = (0, 10))
         
         btnMostrarInformacion = Button(seccion, text = "Mostrar Información", command = mostrarInformacion)
         btnMostrarInformacion.grid(column=2, row=4, pady = (10, 10))
