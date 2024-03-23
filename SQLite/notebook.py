@@ -1,6 +1,12 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+from Controlador import *
+
+controlador = Controlador()
+
+def ejecutarInsert():
+    controlador.insertUsuario(nombre.get(), correo.get(), password.get())
 
 # Creación de la ventana
 ventana = Tk()
@@ -40,6 +46,6 @@ password = tk.StringVar()
 Label(page1, text="Password: ").pack()
 Entry(page1, textvariable=password).pack()
 
-Button(page1, text="Guardar Usuario").pack(pady=(10,0))
+Button(page1, text="Guardar Usuario", command=ejecutarInsert).pack(pady=(10,0))
 
 ventana.mainloop()
