@@ -23,7 +23,7 @@ class Controlador:
     def insertUsuario(self, nombre, correo, password):
         conexion = self.conexion()
         if(nombre=="" or correo=="" or password==""):
-            messagebox.showwarning("Cuidado", "Inputs Vacios")
+            messagebox.showwarning("Cuidado", "Inputs vacios")
             conexion.close()
         else:
             cursor = conexion.cursor()
@@ -34,3 +34,19 @@ class Controlador:
             conexion.commit()
             conexion.close()
             messagebox.showinfo("Exito", "El usuario se guardo exitosamente")
+    
+    def buscarUsuario(self, id):
+        conexion = self.conexion()
+        if(id==""):
+            messagebox.showwarning("Cuidado", "Inputs vacios")
+            conexion.close()
+        else:
+            try:
+                cursor = conexion.cursor()
+                sqlSelect = "select * from tbUsuarios where id=" + id
+                cursor.execute(sqlSelect)
+                usuario = cursor.fetchall()
+                conexion.close()
+                return usuario
+            except sqlite3.OperationalError:
+                print("No se pudo ejecutar la búsqueda")

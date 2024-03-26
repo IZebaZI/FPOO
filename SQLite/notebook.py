@@ -8,6 +8,15 @@ controlador = Controlador()
 def ejecutarInsert():
     controlador.insertUsuario(nombre.get(), correo.get(), password.get())
 
+def ejecutarSelect():
+    usuarioBD = controlador.buscarUsuario(id.get())
+    if usuarioBD == [] or usuarioBD == None:
+        messagebox.showwarning("Usuario Inexistente", "El usuario no fue encontrado")
+    else:
+        print(usuarioBD)
+        infoUsuario.delete("1.0", END)
+        infoUsuario.insert(END, usuarioBD)
+
 # Creación de la ventana
 ventana = Tk()
 ventana.title("Crud Usuarios")
@@ -47,5 +56,18 @@ Label(page1, text="Password: ").pack()
 Entry(page1, textvariable=password).pack()
 
 Button(page1, text="Guardar Usuario", command=ejecutarInsert).pack(pady=(10,0))
+
+# Pestaña 2: Buscar Usuario
+Label(page2, text="Buscar Usuario", fg="blue", font=("Modern", 18)).pack()
+
+id = tk.StringVar()
+Label(page2, text="ID: ").pack()
+Entry(page2, textvariable=id).pack()
+
+Button(page2, text="Buscar Usuario", command=ejecutarSelect).pack(pady=(10,10))
+
+Label(page2, text="Registrado:", fg="blue", font=("Modern", 16)).pack()
+infoUsuario = Text(page2, height=5, width=52)
+infoUsuario.pack()
 
 ventana.mainloop()
