@@ -43,10 +43,45 @@ class Controlador:
         else:
             try:
                 cursor = conexion.cursor()
-                sqlSelect = "select * from tbUsuarios where id=" + id
-                cursor.execute(sqlSelect)
-                usuario = cursor.fetchall()
+                sqlSelect = "select * from tbUsuarios where id = ?"
+                cursor.execute(sqlSelect, id)
+                usuario = cursor.fetchone()
                 conexion.close()
                 return usuario
             except sqlite3.OperationalError:
                 print("No se pudo ejecutar la búsqueda")
+                
+    def listaUsuarios(self):
+        conexion = self.conexion()
+        try:
+            cursor = conexion.cursor()
+            sqlSelect = "select * from tbUsuarios"
+            cursor.execute(sqlSelect)
+            listaUsuarios = cursor.fetchall()
+            conexion.close()
+            return listaUsuarios
+        except sqlite3.OperationalError:
+            print("No se pudo ejecutar la consulta")
+    
+    def editarUsuario(self, nombre, correo, id):
+        conexion = self.conexion()
+        try:
+            cursor = conexion.cursor()
+            datos = (nombre, correo, id)
+            sqlSelect = "update tbUsuarios set nombre = ?, correo = ? where id = ?"
+            cursor.execute(sqlSelect, datos)
+            conexion.commit()
+            conexion.close()
+        except sqlite3.OperationalError:
+                print("No se pudo ejecutar la búsqueda")
+                
+    def eliminarUsuario(self, id):
+        conexion = self.conexion()
+        try:
+            cursor = conexion.cursor()
+            sqlSelect = "delete from tbUsuarios where id = ?"
+            cursor.execute(sqlSelect, id)
+            conexion.commit()
+            conexion.close()
+        except sqlite3.OperationalError:
+                print("No se pudo ejecutar la edición")

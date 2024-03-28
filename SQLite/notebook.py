@@ -13,9 +13,52 @@ def ejecutarSelect():
     if usuarioBD == [] or usuarioBD == None:
         messagebox.showwarning("Usuario Inexistente", "El usuario no fue encontrado")
     else:
-        print(usuarioBD)
         infoUsuario.delete("1.0", END)
         infoUsuario.insert(END, usuarioBD)
+
+def listaUsuarios():
+    listaUsuarios = controlador.listaUsuarios()
+    if listaUsuarios == [] or listaUsuarios == None:
+        messagebox.showwarning("Lista vacía", "No hay usuarios registrados")
+    else:
+        for item in userTable.get_children():
+            userTable.delete(item)
+        for usuario in listaUsuarios:
+            userTable.insert("", END, text=usuario[0], values=usuario[1:])
+
+def selectUpdate():
+    usuarioBD = controlador.buscarUsuario(updateId.get())
+    if usuarioBD == [] or usuarioBD == None:
+        messagebox.showwarning("Usuario Inexistente", "El usuario no fue encontrado")
+    else:
+        entryNombre.delete(0, END)
+        entryNombre.insert(0, usuarioBD[1])
+        entryCorreo.delete(0, END)
+        entryCorreo.insert(0, usuarioBD[2])
+
+def ejecutarUpdate():
+    usuarioBD = controlador.buscarUsuario(updateId.get())
+    if usuarioBD == [] or usuarioBD == None:
+        messagebox.showwarning("Usuario Inexistente", "El usuario no fue encontrado")
+    else:
+        controlador.editarUsuario(updateNombre.get(), updateCorreo.get(), updateId.get())
+        messagebox.showinfo("Usuario Actualizado", "El usuario fue actualizado exitosamente")
+        
+def selectDelete():
+    usuarioBD = controlador.buscarUsuario(deleteId.get())
+    if usuarioBD == [] or usuarioBD == None:
+        messagebox.showwarning("Usuario Inexistente", "El usuario no fue encontrado")
+    else:
+        infoDelete.delete("1.0", END)
+        infoDelete.insert(END, usuarioBD)
+
+def ejecutarDelete():
+    usuarioBD = controlador.buscarUsuario(deleteId.get())
+    if usuarioBD == [] or usuarioBD == None:
+        messagebox.showwarning("Usuario Inexistente", "El usuario no fue encontrado")
+    else:
+        controlador.eliminarUsuario(deleteId.get())
+        messagebox.showinfo("Usuario Eliminado", "El usuario fue eliminado exitosamente")
 
 # Creación de la ventana
 ventana = Tk()
@@ -69,5 +112,65 @@ Button(page2, text="Buscar Usuario", command=ejecutarSelect).pack(pady=(10,10))
 Label(page2, text="Registrado:", fg="blue", font=("Modern", 16)).pack()
 infoUsuario = Text(page2, height=5, width=52)
 infoUsuario.pack()
+
+# Pestaña 3: Consultar Usuarios
+Label(page3, text="Lista de Usuarios", fg="blue", font=("Modern", 18)).pack()
+
+Button(page3, text="Actualizar Lista", command=listaUsuarios).pack(pady=(2,10))
+
+userTable = ttk.Treeview(page3, columns=("#1", "#2", "#3"))
+userTable.column("#0", width=80)
+userTable.column("#1", width=120, anchor=CENTER)
+userTable.column("#2", width=120, anchor=CENTER)
+userTable.column("#3", width=110, anchor=CENTER)
+
+userTable.heading("#0", text="ID", anchor=CENTER)
+userTable.heading("#1", text="Nombre", anchor=CENTER)
+userTable.heading("#2", text="Correo", anchor=CENTER)
+userTable.heading("#3", text="Contraseña", anchor=CENTER)
+userTable.pack()
+
+# userTable = ttk.Treeview(root, column=("column1", "column2", "column3", "column4"), show='headings')
+# userTable.heading("#1", text="ID")
+# userTable.heading("#2", text="Nombre")
+# userTable.heading("#3", text="Correo")
+# userTable.heading("#4", text="Contraseña")
+# userTable.pack()
+
+# Pestaña 4: Editar Usuario
+Label(page4, text="Editar Usuarios", fg="blue", font=("Modern", 18)).pack()
+
+updateId = tk.StringVar()
+Label(page4, text="ID: ").pack()
+Entry(page4, textvariable=updateId).pack()
+
+Button(page4, text="Buscar Usuario", command=selectUpdate).pack(pady=(10,10))
+
+updateNombre = tk.StringVar()
+Label(page4, text="Nombre: ").pack()
+entryNombre = Entry(page4, textvariable=updateNombre)
+entryNombre.pack()
+
+updateCorreo = tk.StringVar()
+Label(page4, text="Correo: ").pack()
+entryCorreo = Entry(page4, textvariable=updateCorreo)
+entryCorreo.pack()
+
+Button(page4, text="Guardar Cambios", command=ejecutarUpdate).pack(pady=(10,0))
+
+# Pestaña 5: Eliminar Usuario
+Label(page5, text="Eliminar Usuario", fg="blue", font=("Modern", 18)).pack()
+
+deleteId = tk.StringVar()
+Label(page5, text="ID: ").pack()
+Entry(page5, textvariable=deleteId).pack()
+
+Button(page5, text="Buscar Usuario", command=selectDelete).pack(pady=(10,10))
+
+Label(page5, text="Registrado:", fg="blue", font=("Modern", 16)).pack()
+infoDelete = Text(page5, height=5, width=52)
+infoDelete.pack()
+
+Button(page5, text="Eliminar Usuario", command=ejecutarDelete).pack(pady=(10,10))
 
 ventana.mainloop()
