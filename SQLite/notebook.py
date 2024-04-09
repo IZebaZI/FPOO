@@ -2,8 +2,11 @@ from tkinter import *
 from tkinter import ttk
 import tkinter as tk
 from Controlador import *
+from GeneradorPDF import *
+import os
 
 controlador = Controlador()
+pdf = GeneradorPDF()
 
 def ejecutarInsert():
     controlador.insertUsuario(nombre.get(), correo.get(), password.get())
@@ -60,10 +63,21 @@ def ejecutarDelete():
         controlador.eliminarUsuario(deleteId.get())
         messagebox.showinfo("Usuario Eliminado", "El usuario fue eliminado exitosamente")
 
+def generarPDF():
+    if title == "":
+        messagebox.showerror("Titulo Vacio", "El título está vacio")
+    else:
+        pdf.add_page()
+        pdf.chapter_body()
+        pdf.output(title.get()+".pdf")
+        rutaPDF = "C:/Users/zebaz/Documents/GitHub/FPOO/"+title.get()+".pdf"
+        messagebox.showinfo("Archivo Creado", "PDF disponible en carpeta")
+        os.system(f"start {rutaPDF}")
+
 # Creación de la ventana
 ventana = Tk()
 ventana.title("Crud Usuarios")
-ventana.geometry("500x300")
+ventana.geometry("700x300")
 
 # Preparación del notebook para las pestañas
 panel = ttk.Notebook(ventana)
@@ -75,6 +89,7 @@ page2 = ttk.Frame(panel)
 page3 = ttk.Frame(panel)
 page4 = ttk.Frame(panel)
 page5 = ttk.Frame(panel)
+page6 = ttk.Frame(panel)
 
 # Agregamos las pestañas
 panel.add(page1, text="Crear Usuario")
@@ -82,6 +97,7 @@ panel.add(page2, text="Buscar Usuario")
 panel.add(page3, text="Consultar Usuarios")
 panel.add(page4, text="Editar Usuario")
 panel.add(page5, text="Borrar Usuario")
+panel.add(page6, text="Reportes en PDF")
 
 # Pestaña 1: Crear Usuario
 Label(page1, text="Registrar Usuarios", fg="blue", font=("Modern", 18)).pack()
@@ -172,5 +188,14 @@ infoDelete = Text(page5, height=5, width=52)
 infoDelete.pack()
 
 Button(page5, text="Eliminar Usuario", command=ejecutarDelete).pack(pady=(10,10))
+
+# Pestaña 6: Reportes en PDF
+Label(page6, text="Generar Reporte en PDF", fg="green", font=("Modern", 18)).pack()
+
+title = tk.StringVar()
+Label(page6, text="Título del Reporte:").pack()
+Entry(page6, textvariable=title).pack()
+
+Button(page6, text="Generar Reporte", command=generarPDF).pack(pady=(10,10))
 
 ventana.mainloop()
